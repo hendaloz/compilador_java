@@ -1,0 +1,151 @@
+/*­­­­Sección de declaraciones package e imports­­­­­­­­­*/
+package compilador_lenguajejava;
+
+import java_cup.runtime.*;
+import java.io.FileReader;
+
+/*­­­­ Sección componentes de código de usuario ­­­­*/
+parser code {:
+    
+    public void report_error(String message, Object info) {
+        StringBuilder m = new StringBuilder("Error");
+System.out.println(info.toString());
+
+/*----- Control de errores------*/
+if(info.toString().equals("#0")){
+       System.out.println("Error palabra no reconocida");
+        } else{
+
+        if(info.toString().equals("#7")){
+           System.out.println("Error en mientras ... Debe ir un punto al inicio");
+        } else{
+
+        if(info.toString().equals("#12")){
+            System.out.println("Error en Punto ... Debe ir un punto al inicio");
+        }else{
+
+        if(info.toString().equals("#2")){
+            System.out.println("Error en publico ... Debe ir un punto al inicio");
+            
+        }else{
+            if(info.toString().equals("#11")){
+            System.out.println("Error en verdadero ... Debe ir un punto al inicio");
+            
+        }else{
+                if(info.toString().equals("#9")){
+            System.out.println("Error en bandera ... Debe ir un punto al inicio");
+            
+        }else{
+                    if(info.toString().equals("#6")){
+            System.out.println("Error en entonces ... Debe ir un punto al inicio");
+            
+        }else{
+                        if(info.toString().equals("#4")){
+            System.out.println("Error en si ... Debe ir un punto al inicio");
+            
+        }else{
+                            if(info.toString().equals("#10")){
+            System.out.println("Error en falso ... Debe ir un punto al inicio");
+            
+        }else{
+                                if(info.toString().equals("#5")){
+            System.out.println("Error en sino ... Debe ir un punto al inicio");
+            
+        }else{
+                                    if(info.toString().equals("#1")){
+            System.out.println("Error");
+            
+        }else{
+                                        if(info.toString().equals("#8")){
+            System.out.println("Error en imprimir ... Debe ir un punto al inicio");
+            
+        }else{
+                                            if(info.toString().equals("#3")){
+            System.out.println("Error en privado ... Debe ir un punto al inicio");
+            
+        }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        }
+    }
+    }
+
+
+
+
+        if (info instanceof java_cup.runtime.Symbol) {
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+            /* Comprueba si el numero de línea es mayor o igual que cero */
+            if (s.left >= 0) {                
+                m.append(" in line "+(s.left+1));
+                /*Comprueba si el numero de columna es mayoro igual que cero */
+                if (s.right >= 0)
+                    m.append(", column "+(s.right+1));
+            }
+        }
+        m.append(" : "+message);
+        System.err.println(m);
+    }
+   /*---------- Presentación del error de sintaxis----------*/
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        
+    }
+
+:};
+
+
+
+/*­­­ Declaración de la lista de símbolos de la gramática ­­­­­*/
+
+/* Produciones de flujo normal */
+
+///////////simbolosterminales/////////////////
+
+
+terminal PUBLIC,PRIVATE,IF,ELSE,THEN,WHILE,PRINT,BOOLEAN,FALSE,TRUE,PUNTO;
+
+
+////////////////////////SIMBOLOS NO TERMINALES /////////////////////
+
+
+non terminal START,COMIENZO;
+
+
+/* ­­­­­­­­­­­­­­ Declaración de la gramática  ­­­­­­­­­­­ */
+
+START ::=  START PUNTO COMIENZO | PUNTO COMIENZO ; 
+                    
+
+
+
+COMIENZO::=    PRIVATE:d     {: RESULT =d.toString(); System.out.println("Se presento PRIVATE");:}
+    
+             | PUBLIC:d      {: RESULT =d.toString(); System.out.println("Se presento PUBLIC");:}
+  
+             | IF:d          {: RESULT =d.toString(); System.out.println("Se presento IF");:}
+    
+             | ELSE:d        {: RESULT =d.toString(); System.out.println("Se presento ELSE");:}        
+    
+             | THEN:d        {: RESULT =d.toString(); System.out.println("Se presento THEN");:}
+  
+             | BOOLEAN:d     {: RESULT =d.toString(); System.out.println("Se presento BOOLEAN");:}
+             
+             | WHILE:d       {: RESULT =d.toString(); System.out.println("Se presento WHILE");:}
+
+             | TRUE:d        {: RESULT =d.toString();System.out.println("Se presento TRUE");:}
+
+             | FALSE:d       {: RESULT =d.toString(); System.out.println("Se presento FALSE");:}
+
+             | PRINT:d       {: RESULT =d.toString(); System.out.println("Se presento PRINT");:}
+             |PUNTO:d     {: RESULT =d.toString(); System.out.println("Se presento PUNTO");:}
+
+           ;
+
